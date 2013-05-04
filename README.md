@@ -18,7 +18,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+	$ git_recent
+    Commands:
+      git_recent help [COMMAND]  # Describe available commands or one specific command
+      git_recent list            # list recently checked-out git branches
+
+I like to alias the following in my .gitconfig:
+
+	[alias]
+	  recent = ! git_recent list
 
 ## Contributing
 

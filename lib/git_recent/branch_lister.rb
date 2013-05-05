@@ -1,30 +1,6 @@
 module GitRecent
   require 'open3'
 
-  class ReflogLine
-    def initialize(line)
-      @line = line
-    end
-
-    def is_checkout?
-      split_line[2] == 'checkout:'
-    end
-
-    def ends_in_sha?
-      split_line.last =~ /\A([0-9a-f]{40}|[0-9a-f]{7}\Z)/
-    end
-
-    def last_field
-      split_line.last
-    end
-
-    private
-
-    def split_line
-      @split_line ||= @line.split(' ')
-    end
-  end
-
   class BranchLister
     def initialize; end
 
@@ -36,10 +12,12 @@ module GitRecent
           o.each_line do |line_string|
             line = GitRecent::ReflogLine.new(line_string)
 
-            next unless line.is_checkout?
-            next if line.ends_in_sha?
+            checked_out_entity = line.checked_out_entity
 
-            recent_branches[line.last_field] = true
+            next unless checked_out_entity
+            next if looks_like_sha? checked_out_entity
+
+            recent_branches[checked_out_entity] = true
 
             return recent_branches.keys if recent_branches.keys.length == 5
           end
@@ -47,6 +25,12 @@ module GitRecent
           return recent_branches.keys
         end
       end
+    end
+
+    private
+
+    def looks_like_sha?(item)
+      item =~ /\A([0-9a-f]{40}|[0-9a-f]{7}\Z)/
     end
   end
 end

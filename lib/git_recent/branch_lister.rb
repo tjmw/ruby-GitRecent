@@ -30,7 +30,7 @@ module GitRecent
     private
 
     def looks_like_sha?(item)
-      item =~ /\A([0-9a-f]{40}|[0-9a-f]{7}\Z)/
+      item =~ /\A([0-9a-f]{40}|[0-9a-f]{7})\Z/
     end
   end
 end

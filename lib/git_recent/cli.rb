@@ -2,7 +2,7 @@ module GitRecent
   require 'thor'
 
   class Cli < Thor
-    desc 'list', 'list recently checked-out git branches'
+    desc 'list', 'List recently checked-out git branches'
     def list
       recent_branch_names = GitRecent::BranchLister.new.branch_names
 
@@ -13,7 +13,7 @@ module GitRecent
       end
     end
 
-    desc 'checkout', 'interactively checkout a recently checked-out git branch'
+    desc 'checkout', 'Interactively checkout a recently checked-out git branch'
     def checkout
       recent_branch_names = GitRecent::BranchLister.new.branch_names
 

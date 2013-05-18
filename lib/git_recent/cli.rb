@@ -1,4 +1,5 @@
 module GitRecent
+  require 'git'
   require 'thor'
 
   class Cli < Thor
@@ -23,7 +24,7 @@ module GitRecent
       selected_branch = chooser.request_choice
 
       if selected_branch
-        system `git checkout #{selected_branch}`
+        Git.open('.').checkout(selected_branch)
       end
     end
   end

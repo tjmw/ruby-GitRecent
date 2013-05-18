@@ -22,5 +22,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
   spec.add_development_dependency 'rspec'
 
+  spec.add_dependency 'git', '~> 1.2.5'
   spec.add_dependency 'thor', '~> 0.18.1'
 end

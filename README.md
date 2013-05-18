@@ -1,5 +1,7 @@
 # GitRecent
 
+[![Build Status](https://travis-ci.org/tjmw/ruby-GitRecent.png)](https://travis-ci.org/tjmw/ruby-GitRecent)
+
 Command line tool (wrapped in a gem) for displaying and interacting with recently checked-out
 git branches
 

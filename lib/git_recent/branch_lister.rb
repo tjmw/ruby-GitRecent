@@ -2,8 +2,6 @@ module GitRecent
   require 'open3'
 
   class BranchLister
-    def initialize; end
-
     def branch_names
       @recent_branch_names ||= begin
         Open3.pipeline_r('git reflog') do |o, ts|

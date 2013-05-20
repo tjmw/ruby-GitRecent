@@ -1,27 +1,31 @@
 module GitRecent
-  require 'open3'
-
   class BranchLister
+    private
+
+    attr_accessor :reflog_iterator
+
+    public
+
+    def initialize(reflog_iterator=GitRecent::ReflogIterator.new)
+      @reflog_iterator = reflog_iterator
+    end
+
     def branch_names
       @recent_branch_names ||= begin
-        Open3.pipeline_r('git reflog') do |o, ts|
-          recent_branches = {}
+        recent_branches = {}
 
-          o.each_line do |line_string|
-            line = GitRecent::ReflogLine.new(line_string)
+        reflog_iterator.each do |reflog_line|
+          checked_out_entity = reflog_line.checked_out_entity
 
-            checked_out_entity = line.checked_out_entity
+          next unless checked_out_entity
+          next if looks_like_sha? checked_out_entity
 
-            next unless checked_out_entity
-            next if looks_like_sha? checked_out_entity
+          recent_branches[checked_out_entity] = true
 
-            recent_branches[checked_out_entity] = true
-
-            return recent_branches.keys if recent_branches.keys.length == 5
-          end
-
-          return recent_branches.keys
+          return recent_branches.keys if recent_branches.keys.length == 5
         end
+
+        recent_branches.keys
       end
     end
 

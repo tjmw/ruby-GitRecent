@@ -6,5 +6,4 @@ require 'git_recent/reflog_line'
 require 'git_recent/version'
 
 module GitRecent
-  # Your code goes here...
 end

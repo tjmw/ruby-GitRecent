@@ -4,7 +4,12 @@ module GitRecent
       @line = line
     end
 
-    def checked_out_entity
+    def from_branch
+      return unless is_checkout?
+      split_line[-3]
+    end
+
+    def to_branch
       return unless is_checkout?
       split_line.last
     end
@@ -12,7 +17,9 @@ module GitRecent
     private
 
     def is_checkout?
-      split_line[2] == 'checkout:'
+      @is_checkout ||= begin
+        split_line[2] == 'checkout:'
+      end
     end
 
     def split_line

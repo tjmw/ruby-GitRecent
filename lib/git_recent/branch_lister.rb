@@ -17,12 +17,11 @@ module GitRecent
         recent_branches = {}
 
         reflog_iterator.each do |reflog_line|
-          checked_out_entity = reflog_line.checked_out_entity
+          to_branch = reflog_line.to_branch
+          recent_branches[to_branch] = true if should_include_branch? to_branch
 
-          next unless checked_out_entity
-          next unless local_branch_exists? checked_out_entity
-
-          recent_branches[checked_out_entity] = true
+          from_branch = reflog_line.from_branch
+          recent_branches[from_branch] = true if should_include_branch? from_branch
 
           return recent_branches.keys if recent_branches.keys.length == 5
         end
@@ -35,6 +34,10 @@ module GitRecent
 
     def local_branch_exists?(checked_out_entity)
       local_branches.include? checked_out_entity
+    end
+
+    def should_include_branch?(branch)
+      branch and local_branch_exists? branch
     end
   end
 end

@@ -28,8 +28,16 @@ describe GitRecent::BranchLister do
     Set.new(%w(master my_feature test my_other_feature))
   }
 
-  it 'returns the correctly ordered list of branches' do
-    lister.branch_names.should eql(%w(master my_feature test))
+  context 'when a max > than the number of branches is specified' do
+    it 'returns the correctly ordered list of branches' do
+      lister.branch_names(5).should eql(%w(master my_feature test))
+    end
+  end
+
+  context 'when a max < than the number of branches is specified' do
+    it 'returns the correctly ordered list of branches' do
+      lister.branch_names(2).should eql(%w(master my_feature))
+    end
   end
 
   context 'when a branch is renamed' do
@@ -47,7 +55,7 @@ describe GitRecent::BranchLister do
     }
 
     it 'returns the correctly ordered list of branches' do
-      lister.branch_names.should eql(%w(master new_branch_name test))
+      lister.branch_names(5).should eql(%w(master new_branch_name test))
     end
   end
 end

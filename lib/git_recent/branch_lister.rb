@@ -12,7 +12,7 @@ module GitRecent
       @local_branches = local_branches
     end
 
-    def branch_names
+    def branch_names(max)
       @recent_branch_names ||= begin
         recent_branches = {}
 
@@ -20,10 +20,12 @@ module GitRecent
           to_branch = reflog_line.to_branch
           recent_branches[to_branch] = true if should_include_branch? to_branch
 
+          return recent_branches.keys if recent_branches.keys.length == max
+
           from_branch = reflog_line.from_branch
           recent_branches[from_branch] = true if should_include_branch? from_branch
 
-          return recent_branches.keys if recent_branches.keys.length == 5
+          return recent_branches.keys if recent_branches.keys.length == max
         end
 
         recent_branches.keys

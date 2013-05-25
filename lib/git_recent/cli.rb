@@ -2,9 +2,7 @@ module GitRecent
   require 'thor'
 
   class Cli < Thor
-    DEFAULT_MAX_BRANCHES = 5
-
-    class_option :max, :type => :numeric
+    class_option :max, type: :numeric, default: 5
 
     desc 'list', 'List recently checked-out git branches'
     def list
@@ -27,7 +25,7 @@ module GitRecent
     private
     def recent_branch_names
       branch_lister = GitRecent::BranchLister.new
-      recent_branch_names = branch_lister.branch_names(options[:max] || DEFAULT_MAX_BRANCHES)
+      recent_branch_names = branch_lister.branch_names(options[:max].to_i)
       abort 'No recent branches' if recent_branch_names.empty?
       recent_branch_names
     end

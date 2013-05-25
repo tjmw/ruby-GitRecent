@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Tom Wey']
   spec.email         = ['tjmwey@gmail.com']
   spec.description   = %q{CLI for displaying and interacting with recently checked-out git branches}
-  spec.summary       = %q{CLI for displaying and interacting with recently checked-out git branches}
+  spec.summary       = %q{List and interactively checkout recently checked-out git branches}
   spec.homepage      = 'https://github.com/tjmw/ruby-GitRecent'
   spec.license       = 'MIT'
 

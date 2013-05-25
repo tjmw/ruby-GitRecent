@@ -1,7 +1,5 @@
 module GitRecent
-  require 'git'
   require 'thor'
-
   class Cli < Thor
     desc 'list', 'List recently checked-out git branches'
     def list

@@ -2,12 +2,14 @@ module GitRecent
   class BranchLister
     private
 
-    attr_accessor :reflog_iterator
+    attr_accessor :local_branches, :reflog_iterator
 
     public
 
-    def initialize(reflog_iterator=GitRecent::ReflogIterator.new)
+    def initialize(reflog_iterator=GitRecent::ReflogIterator.new,
+                   local_branches=GitRecent::LocalBranchReader.local_branches)
       @reflog_iterator = reflog_iterator
+      @local_branches = local_branches
     end
 
     def branch_names
@@ -18,7 +20,7 @@ module GitRecent
           checked_out_entity = reflog_line.checked_out_entity
 
           next unless checked_out_entity
-          next if looks_like_sha? checked_out_entity
+          next unless local_branch_exists? checked_out_entity
 
           recent_branches[checked_out_entity] = true
 
@@ -31,8 +33,8 @@ module GitRecent
 
     private
 
-    def looks_like_sha?(item)
-      item =~ /\A([0-9a-f]{40}|[0-9a-f]{7})\Z/
+    def local_branch_exists?(checked_out_entity)
+      local_branches.include? checked_out_entity
     end
   end
 end

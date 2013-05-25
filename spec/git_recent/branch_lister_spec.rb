@@ -20,7 +20,13 @@ describe GitRecent::BranchLister do
     reflog_lines.collect { |line| GitRecent::ReflogLine.new(line) }
   }
 
-  let(:lister) { GitRecent::BranchLister.new(dummy_reflog_iterator) }
+  let(:local_branches) {
+    Set.new(%w(master my_feature test my_other_feature))
+  }
+
+  let(:lister) {
+    GitRecent::BranchLister.new(dummy_reflog_iterator, local_branches)
+  }
 
   it 'returns a correctly ordered list of recently checked out branches' do
     lister.branch_names.should eql(%w(master my_feature test))

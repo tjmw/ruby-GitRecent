@@ -23,6 +23,7 @@ module GitRecent
     end
 
     private
+
     def recent_branch_names
       branch_lister = GitRecent::BranchLister.new
       recent_branch_names = branch_lister.branch_names(options[:max].to_i)

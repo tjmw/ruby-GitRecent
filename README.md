@@ -18,6 +18,10 @@ git branches
       git_recent help [COMMAND]  # Describe available commands or one specific command
       git_recent list            # List recently checked-out git branches
 
+    Options:
+      [--max=N]
+                # Default: 5
+
 I like to alias the following in my .gitconfig:
 
 	[alias]

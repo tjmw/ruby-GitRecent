@@ -7,7 +7,7 @@ module GitRecent
     public
 
     def initialize(reflog_iterator=GitRecent::ReflogIterator.new,
-                   local_branches=GitRecent::LocalBranchReader.local_branches)
+                   local_branches=GitRecent::LocalBranchReader.local_branches_excluding_current)
       @reflog_iterator = reflog_iterator
       @local_branches = local_branches
     end

@@ -10,6 +10,14 @@ Gem::Specification.new do |spec|
   spec.email         = ['tjmwey@gmail.com']
   spec.description   = %q{CLI for displaying and interacting with recently checked-out git branches}
   spec.summary       = %q{List and interactively checkout recently checked-out git branches}
+  spec.post_install_message = <<-'MSG'
+You may find it useful to add the following to the [alias] section of your .gitconfig:
+
+rl = ! sh -c 'git_recent list'
+rc = ! sh -c 'git_recent checkout'
+
+MSG
+
   spec.homepage      = 'https://github.com/tjmw/ruby-GitRecent'
   spec.license       = 'MIT'
 

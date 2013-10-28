@@ -25,8 +25,8 @@ git branches
 I like to alias the following in my .gitconfig:
 
 	[alias]
-	  recent = ! git_recent list
-	  rc = ! git_recent checkout
+      rl = ! sh -c 'git_recent list'
+      rc = ! sh -c 'git_recent checkout'
 
 ## Contributing
 

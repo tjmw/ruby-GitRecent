@@ -22,6 +22,12 @@ module GitRecent
       end
     end
 
+    desc 'version', "Print version information"
+    def version
+      puts "git_recent version #{GitRecent::VERSION}"
+    end
+    map %w(-v --version) => :version
+
     private
 
     def recent_branch_names

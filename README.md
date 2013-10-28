@@ -17,6 +17,7 @@ git branches
       git_recent checkout        # Interactively checkout a recently checked-out git branch
       git_recent help [COMMAND]  # Describe available commands or one specific command
       git_recent list            # List recently checked-out git branches
+      git_recent version         # Print version information
 
     Options:
       [--max=N]
